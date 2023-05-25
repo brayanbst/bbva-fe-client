@@ -22,7 +22,6 @@ export class NewClientComponent implements OnInit {
     }
 
   submit() {
-    console.log('TESTNEW', this.presenter.form.value);
     this.onSubmit.emit(this.presenter.form.value);
   }
 

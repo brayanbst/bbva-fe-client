@@ -64,7 +64,7 @@ export class ClientService {
   }
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      console.error(error); // log to console instead
+      console.error(error);
       return of(result as T);
     };
   }

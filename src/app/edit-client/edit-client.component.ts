@@ -21,7 +21,6 @@ export class EditClientComponent implements OnInit {
 
   @Input() set item(item: any) {
     if (item) {
-      console.log('entradaedit', item);
       this.presenter.form.patchValue(item)
     } else return;
   }
