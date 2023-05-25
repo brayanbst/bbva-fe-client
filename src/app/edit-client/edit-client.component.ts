@@ -21,7 +21,11 @@ export class EditClientComponent implements OnInit {
 
   @Input() set item(item: any) {
     if (item) {
-      this.presenter.form.patchValue(item)
+      this.originalData = {
+        ...item,
+        id: item.id
+      }
+      this.presenter.form.patchValue(this.originalData)
     } else return;
   }
 
@@ -35,6 +39,7 @@ export class EditClientComponent implements OnInit {
   }
 
   emitEditFields(event: any) {
+    event.id = this.originalData.id;
     this.onSubmit.emit(event);
   }
 

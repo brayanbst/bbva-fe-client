@@ -11,7 +11,7 @@ export const newPanelFields: IField[] = [
   {
     key: 'name',
     type: 'text',
-    label: 'Client',
+    label: 'Name',
     default: '',
   },
   {

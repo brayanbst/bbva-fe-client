@@ -15,7 +15,8 @@ export class ClientService {
     ) {
   }
   getItems(filters: any) {
-    const URL = `http://localhost:4100/reto/services/clients`;
+    //const URL = `http://localhost:4100/reto/services/clients`;
+    const URL = `https://646f1cd009ff19b1208699ba.mockapi.io/reto/services/clients`;
 
    let params = new HttpParams()
    if(filters && filters.ip) {
@@ -24,7 +25,8 @@ export class ClientService {
    return this.http.get<any>(URL);
   }
   newItem(payload: any) {
-    const URL = `http://localhost:4100/reto/services/clients`;
+    //const URL = `http://localhost:4100/reto/services/clients`;
+    const URL = `https://646f1cd009ff19b1208699ba.mockapi.io/reto/services/clients`;
 
     return this.http.post<IGetItem<any>>(URL, payload).pipe(
       tap(e => e),
@@ -34,7 +36,8 @@ export class ClientService {
   }
 
   editItem(payload: any, id: number) {
-    const URL = `http://localhost:4100/reto/services/clients/${id}`;
+    //const URL = `http://localhost:4100/reto/services/clients/${id}`;
+    const URL = `https://646f1cd009ff19b1208699ba.mockapi.io/reto/services/clients/${id}`;
 
     return this.http.put<IGetItem<any>>(URL, payload).pipe(
       tap(e => e),
@@ -44,7 +47,7 @@ export class ClientService {
   }
 
   deleteItem(id: number) {
-    const URL = `http://localhost:4100/reto/services/clients/${id}`;
+    const URL = `https://646f1cd009ff19b1208699ba.mockapi.io/reto/services/clients/${id}`;
 
     return this.http.delete<IGetItem<any>>(URL).pipe(
       tap(e => e),

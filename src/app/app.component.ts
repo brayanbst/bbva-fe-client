@@ -18,23 +18,7 @@ export class AppComponent implements OnInit {
 
   selectedItem: any;
 
-  items: any[] = [
-    {
-      "id": 1,
-      "client": "John Doe",
-      "age": 30
-    },
-    {
-      "id": 2,
-      "client": "Jane Smith",
-      "age": 25
-    },
-    {
-      "id": 3,
-      "client": "Mike Johnson",
-      "age": 40
-    }
-  ];
+  items: any[] = [];
 
 
   constructor(

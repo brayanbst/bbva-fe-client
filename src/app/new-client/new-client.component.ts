@@ -23,6 +23,7 @@ export class NewClientComponent implements OnInit {
 
   submit() {
     this.onSubmit.emit(this.presenter.form.value);
+    this.presenter.form.reset();
   }
 
   ngOnInit() {
