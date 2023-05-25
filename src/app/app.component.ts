@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs'; 
 import { filter, takeUntil } from 'rxjs/operators'; 
+import { ClientService } from './../pages/_shared/services/client.service'
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -14,12 +16,7 @@ export class AppComponent implements OnInit {
   FilterPanelIsVisible = false;
   LogPanelIsVisible = false;
 
-  //productId: string;
-  //active: number = 2;
-
   selectedItem: any;
-
-  //logs$: BehaviorSubject<any> = new BehaviorSubject(undefined);
 
   items: any[] = [
     {
@@ -39,83 +36,42 @@ export class AppComponent implements OnInit {
     }
   ];
 
-  //destroy$ = new Subject<boolean>();
-
-  //loading$ = this.httpStatusService.loading$;
 
   constructor(
-   // private restrictionService: RestrictionService,
-    ///private roleService: ActivatedRoleService,
-    //private httpStatusService: HttpStatusService,
+    private clientService: ClientService,
+    private http: HttpClient, 
   ) {
   }
 
   ngOnInit() {
-    /*this.roleService.activatedProduct$
-      .pipe(
-        takeUntil(this.destroy$),
-        filter((p) => !!p),
-      )
-      .subscribe((p) => this.onchangeProduct(p.id));*/
-  }
-
-  ngOnDestroy(): void {
-    //this.destroy$.next();
-  }
-
- /* onchangeProduct(e) {
-    this.productId = e;
-    this.handleGetBanners();
+    this.fetchItems()
   }
 
   fetchItems() {
-    this.items$ = this.restrictionService.getItemsDomainRules(this.productId);
+     this.clientService.getItems(undefined).subscribe(data =>{
+      this.items = data;
+    });
   }
-
-  handleGetBanners() {
-    this.fetchItems();
-  }
-
-  handleShowEdit(item: IDomainRule) {
-    this.selectedItem = item;
-    this.EditPanelIsVisible = true;
-  }*/
 
   handleDeleteClient(id: any) {
-    console.log('TESTeliminar', id);
-  /*  this.restrictionService.deleteItem(settingId).subscribe(
+    this.clientService.deleteItem(id).subscribe(
       _ => this.fetchItems()
-    )*/
+    )
   }
 
-  /*handleSubmitFilter(value: any) {
-    this.active = value.active;
-    if (!value.bannerId) {
-      this.items$ = this.restrictionService.getItemsDomainRules(this.productId);
-    } else {
-      this.items$ = this.restrictionService.getItemsDomainRules(value.bannerId);
-    }
-    this.FilterPanelIsVisible = false;
-  }
 
-  handlecleanFilters() {
-    this.active = 2; //INITIAL STATE
-    this.fetchItems();
-    this.FilterPanelIsVisible = false;
-  }
-*/
   handleSubmitNewItem(data: any) {
-    console.log('TESTRESPUESTA', data);
-    //this.restrictionService.newItemDomainRule(data).subscribe((_) => this.fetchItems());
+    this.clientService.newItem(data).subscribe((_) => this.fetchItems());
     this.NewPanelIsVisible = false;
   }
 
   handleSubmitEditItem(data: any) {
-   /* this.restrictionService.editItemDomainRule(data, data.settingId).subscribe((_) => {
+    const IdClient = data.id;
+    delete data.id;
+   this.clientService.editItem(data, IdClient).subscribe((_) => {
       this.fetchItems();
-    });*/
-    console.log('TESTUPDATE', data);
-    this.EditPanelIsVisible = false;
+          this.EditPanelIsVisible = false;
+    });
 
   }
 }
