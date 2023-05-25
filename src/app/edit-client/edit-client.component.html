@@ -1,0 +1,59 @@
+<p-sidebar
+  [(visible)]="isVisible"
+  position="right"
+  styleClass="p-sidebar-md"
+  [showCloseIcon]="false"
+  [closeOnEscape]="false"
+  (onHide)="onHide.emit()"
+>
+  <div class="container keys-content">
+    <h1>Edit</h1>
+
+    <form [formGroup]="presenter.form" (ngSubmit)="emitEditFields(presenter.form.value)">
+      <div class="col-12 py-2" *ngFor="let item of fields">
+        <h5>{{ item.label }}</h5>
+        <div [ngSwitch]="item.type">
+          <div *ngSwitchCase="'text'">
+            <input
+              class="w-100"
+              pInputText
+              type="text"
+              formControlName="{{ item.key }}"
+              placeholder="{{ item.placeholder }}"
+              />
+          </div>
+          <div [ngSwitch]="item.type">
+            <textarea pInputTextarea *ngSwitchCase="'textarea'" [style]="{'width':'100%'}"
+            [formControlName]="item.key"
+            placeholder="{{ item.placeholder }}"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 mt-4 buttons-action">
+        <button
+          pButton
+          type="button"
+          class="p-button-secondary"
+          label="Cancel"
+          (click)="onHide.emit()"
+        ></button>
+        <div class="buttons-submit">
+          <button
+            pButton
+            type="button"
+            class="p-button-secondary"
+            label="Clean"
+            (click)="clean()"
+          ></button>
+          <button
+              pButton
+              type="submit"
+              class=""
+              [disabled]="!presenter.form.valid"
+              label="Save"
+            ></button>
+        </div>
+      </div>
+    </form>
+  </div>
+</p-sidebar>

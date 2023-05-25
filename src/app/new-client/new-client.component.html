@@ -1,0 +1,59 @@
+<p-sidebar
+  [(visible)]="isVisible"
+  position="right"
+  styleClass="p-sidebar-md"
+  [showCloseIcon]="false"
+  [closeOnEscape]="false"
+  (onHide)="onHide.emit()"
+>
+  <div class="container keys-content">
+    <h1>New</h1>
+
+    <form class="row mt-2" [formGroup]="presenter.form" (ngSubmit)="submit()">
+      <div class="col-12 py-2" *ngFor="let item of fields">
+        <h5>{{ item.label | translate }}</h5>
+        <div [ngSwitch]="item.type">
+          <div *ngSwitchCase="'text'">
+            <input
+              class="w-100"
+              pInputText
+              type="text"
+              formControlName="{{ item.key }}"
+              placeholder="{{ item.placeholder }}"
+              />
+          </div>
+          <div [ngSwitch]="item.type">
+            <textarea pInputTextarea *ngSwitchCase="'textarea'" [style]="{'width':'100%'}"
+            [formControlName]="item.key"
+            placeholder="{{ item.placeholder }}"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 mt-4 buttons-action" style="display: flex; margin-top: 20%;">
+        <button
+          pButton
+          type="button"
+          class="p-button-secondary"
+          label="Cancel"
+          (click)="onHide.emit()"
+        ></button>
+        <div class="buttons-submit">
+          <button
+            pButton
+            type="button"
+            class="p-button-secondary"
+            label="Clean"
+            (click)="presenter.form.reset()"
+          ></button>
+          <button
+            pButton
+            type="Submit"
+            [disabled]="!presenter.form.valid"
+            class=""
+            label="Submit"
+          ></button>
+        </div>
+      </div>
+    </form>
+  </div>
+</p-sidebar>
